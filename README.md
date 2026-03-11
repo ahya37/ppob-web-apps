@@ -71,4 +71,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## 📄 License
 
-This project is private and for internal use only.
+[Ahya Development]
