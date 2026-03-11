@@ -1,4 +1,4 @@
-import { Reseller } from "../entities";
+import { Reseller } from "@/app/database/entities";
 
 export class ResellerRepository {
   async getAllResellers(): Promise<Reseller[]> {
