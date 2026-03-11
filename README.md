@@ -1,4 +1,4 @@
-# MPU PPOB Web App
+# PPOB Web App
 
 A modern, high-performance Payment Point Online Bank (PPOB) web application built with Next.js 16 and Tailwind CSS 4. This application provides a seamless interface for various digital transactions.
 
