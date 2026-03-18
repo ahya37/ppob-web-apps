@@ -39,26 +39,14 @@ A modern, high-performance Payment Point Online Bank (PPOB) web application buil
    npm install
    ```
 
-3. **Configure Environment Variables**:
-   Create a `.env` file in the root directory (refer to `.env.example` if available):
+3. **Run the development server**:
 
-   ```env
-   DB_CONNECTION=sqlsrv
-   DB_HOST=your_host
-   DB_PORT=XXXX
-   DB_DATABASE=your_db
-   DB_USERNAME=your_username
-   DB_PASSWORD=your_password
-   ```
-
-4. **Run the development server**:
    ```bash
    npm run dev
    # or
    npm run start:dev  # (using nodemon)
-   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```
 
 ## 📂 Project Structure
 
