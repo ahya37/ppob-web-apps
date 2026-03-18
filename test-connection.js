@@ -43,10 +43,6 @@ async function testConnection() {
         
         if (err.code === 'ETIMEOUT') {
             console.log('\nDIAGNOSIS: The connection timed out. This usually means:');
-            console.log('1. The IP address is wrong.');
-            console.log('2. The port (1433) is blocked by a firewall.');
-            console.log('3. Your IP is not whitelisted on the server.');
-            console.log('4. You need to be on a specific VPN.');
         }
     }
 }
