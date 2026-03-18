@@ -45,7 +45,7 @@ A modern, high-performance Payment Point Online Bank (PPOB) web application buil
    ```env
    DB_CONNECTION=sqlsrv
    DB_HOST=your_host
-   DB_PORT=1433
+   DB_PORT=XXXX
    DB_DATABASE=your_db
    DB_USERNAME=your_username
    DB_PASSWORD=your_password

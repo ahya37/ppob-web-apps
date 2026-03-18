@@ -1,16 +1,17 @@
-import { Sequelize } from 'sequelize';
-import tedious from 'tedious';
+import "server-only";
+import { Sequelize } from "sequelize";
+import tedious from "tedious";
 
-const database = process.env.DB_DATABASE || '';
-const username = process.env.DB_USERNAME || '';
-const password = process.env.DB_PASSWORD || '';
-const host = process.env.DB_HOST || 'localhost';
-const port = parseInt(process.env.DB_PORT || '1433');
+const database = process.env.DB_DATABASE || "";
+const username = process.env.DB_USERNAME || "";
+const password = process.env.DB_PASSWORD || "";
+const host = process.env.DB_HOST || "localhost";
+const port = parseInt(process.env.DB_PORT || "1433");
 
 export const sequelize = new Sequelize(database, username, password, {
   host: host,
   port: port,
-  dialect: 'mssql',
+  dialect: "mssql",
   dialectModule: tedious,
   dialectOptions: {
     options: {

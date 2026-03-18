@@ -1,3 +1,4 @@
+import "server-only";
 import sql from "mssql";
 
 const config: sql.config = {
