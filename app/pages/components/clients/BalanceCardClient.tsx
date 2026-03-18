@@ -1,9 +1,10 @@
 "use client";
 
-import { IsLogin } from "@/app/utils";
+interface Props {
+  isLogin: boolean;
+}
 
-export const BalanceCard = () => {
-  const isLogin = IsLogin();
+export default function BalanceCardClient({ isLogin }: Props) {
   if (!isLogin) return null;
 
   return (
@@ -22,6 +23,7 @@ export const BalanceCard = () => {
             </p>
           </div>
         </div>
+
         <button className="bg-primary text-white text-sm font-bold py-2.5 px-5 rounded-lg flex items-center gap-2 active:scale-95 transition-transform">
           <span className="material-icons-round text-sm">add</span>
           Top Up
@@ -29,4 +31,4 @@ export const BalanceCard = () => {
       </div>
     </div>
   );
-};
+}

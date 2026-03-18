@@ -1,10 +1,12 @@
 export * from "./PromoCard";
 export * from "./Transaction";
 export * from "./Service";
-export * from "./BalanceCard";
+export * from "./servers";
+
 export * from "./Search";
-export * from "./Profile";
 export * from "./BottomNav";
+
 export * from "./HeaderTopUp";
 export * from "./PhoneInputTopUp";
 export * from "./DominationsTopUp";
+export * from "./clients";

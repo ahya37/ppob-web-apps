@@ -22,6 +22,7 @@ const Login: React.FC<LoginProps> = ({ onNavigate }) => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           email: username,
           password: password,

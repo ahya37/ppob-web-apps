@@ -2,11 +2,29 @@
 
 import Image from "next/image";
 import { View } from "@/types";
-import { IsLogin, UserLogin } from "@/app/utils";
 
-export const Profile = ({ onNavigate }: { onNavigate: (v: View) => void }) => {
-  const isLogin = IsLogin();
-  const user = UserLogin();
+interface Props {
+  user: {
+    username?: string;
+    name?: string;
+  } | null;
+  isLogin: boolean;
+  onNavigate: (v: View) => void;
+}
+
+export default function ProfileClient({ user, isLogin, onNavigate }: Props) {
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/auths/logout", { method: "POST" });
+      if (res.ok) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   return (
     <div className="relative z-10 flex justify-between items-center mb-6">
@@ -23,20 +41,28 @@ export const Profile = ({ onNavigate }: { onNavigate: (v: View) => void }) => {
               />
             </div>
             <div>
-              <h2 className="text-white font-bold text-lg">{user?.name}</h2>
+              <h2 className="text-white font-bold text-lg">
+                {user?.name || user?.username}
+              </h2>
+              <button
+                onClick={handleLogout}
+                className="text-white/60 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors flex items-center gap-1"
+              >
+                Logout
+                <span className="material-icons-round text-xs">logout</span>
+              </button>
             </div>
           </>
         ) : (
-          <>
-            <button
-              onClick={() => onNavigate("login")}
-              className="px-4 py-2 rounded-xl bg-white/10 text-white text-sm font-semibold hover:bg-white/20 transition-all"
-            >
-              Login
-            </button>
-          </>
+          <button
+            onClick={() => onNavigate("login")}
+            className="px-4 py-2 rounded-xl bg-white/10 text-white text-sm font-semibold hover:bg-white/20 transition-all"
+          >
+            Login
+          </button>
         )}
       </div>
+
       <div className="flex items-center space-x-2">
         <span className="text-white/40 font-black text-xs uppercase tracking-tighter">
           Muara Digital
@@ -47,4 +73,4 @@ export const Profile = ({ onNavigate }: { onNavigate: (v: View) => void }) => {
       </div>
     </div>
   );
-};
+}
