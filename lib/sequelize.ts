@@ -8,8 +8,8 @@ const createSequelize = (): Sequelize => {
   const database = process.env.DB_DATABASE || "";
   const username = process.env.DB_USERNAME || "";
   const password = process.env.DB_PASSWORD || "";
-  const host = process.env.DB_HOST || "localhost";
-  const port = parseInt(process.env.DB_PORT || "1433");
+  const host = process.env.DB_HOST || "";
+  const port = parseInt(process.env.DB_PORT || "");
 
   return new Sequelize(database, username, password, {
     host,
