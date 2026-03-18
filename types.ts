@@ -1,12 +1,26 @@
-
-export type View = 'home' | 'topup' | 'pln' | 'promos' | 'checkout' | 'receipt' | 'history' | 'profile' | 'data_package' | 'bpjs' | 'pdam' | 'emoney' | 'more' | 'games';
+export type View =
+  | "home"
+  | "topup"
+  | "pln"
+  | "promos"
+  | "checkout"
+  | "receipt"
+  | "history"
+  | "profile"
+  | "data_package"
+  | "bpjs"
+  | "pdam"
+  | "emoney"
+  | "more"
+  | "games"
+  | "login";
 
 export interface Product {
   id: string;
   nominal: string;
   price: number;
   label?: string;
-  description?: string; 
+  description?: string;
   validity?: string;
 }
 
@@ -15,8 +29,13 @@ export interface Transaction {
   title: string;
   date: string;
   amount: number;
-  status: 'Success' | 'Pending' | 'Failed';
-  type: 'bolt' | 'smartphone' | 'health_and_safety' | 'water_drop' | 'account_balance';
+  status: "Success" | "Pending" | "Failed";
+  type:
+    | "bolt"
+    | "smartphone"
+    | "health_and_safety"
+    | "water_drop"
+    | "account_balance";
 }
 
 export interface User {

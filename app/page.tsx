@@ -13,11 +13,12 @@ import {
   MoreServices,
   Checkout,
   Receipt,
+  Login,
 } from "./pages";
 import { Product, View } from "@/types";
 
 const App: React.FC = () => {
-  const [view, setView] = useState<View>("home");
+  const [view, setView] = useState<View>("login");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
@@ -86,6 +87,8 @@ const App: React.FC = () => {
             onNavigate={handleNavigate}
           />
         );
+      case "login":
+        return <Login onNavigate={handleNavigate} />;
       default:
         return <Home onNavigate={handleNavigate} />;
     }
