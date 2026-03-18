@@ -6,13 +6,14 @@ import {
   PhoneInputTopUp,
 } from "./components";
 import { View, Product } from "@/types";
+import { ReturnLogin } from "../utils";
 
 interface TopUpProps {
-  // Make product optional to match App.tsx navigateTo signature and allow passing to BottomNav
   onNavigate: (view: View, product?: Product, phone?: string) => void;
   onBack: () => void;
 }
 const TopUp: React.FC<TopUpProps> = ({ onNavigate, onBack }) => {
+  ReturnLogin({ onNavigate });
   const [phone, setPhone] = useState("0812 3456 7890");
 
   return (

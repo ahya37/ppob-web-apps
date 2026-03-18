@@ -1,4 +1,11 @@
+"use client";
+
+import { IsLogin } from "@/app/utils";
+
 export const BalanceCard = () => {
+  const isLogin = IsLogin();
+  if (!isLogin) return null;
+
   return (
     <div className="px-6 -mt-14 relative z-20">
       <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-xl flex items-center justify-between border border-primary/5">

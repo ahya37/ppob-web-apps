@@ -23,7 +23,7 @@ const Login: React.FC<LoginProps> = ({ onNavigate }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: username, // sementara pakai username sebagai email
+          email: username,
           password: password,
         }),
       });
@@ -34,12 +34,9 @@ const Login: React.FC<LoginProps> = ({ onNavigate }) => {
         throw new Error(data.message || "Login failed");
       }
 
-      // ✅ Simpan token (simple)
-      localStorage.setItem("token", data.data.token);
+      localStorage.setItem("token", data?.token);
+      localStorage.setItem("user", JSON.stringify(data?.user));
 
-      console.log("Login success:", data);
-
-      // redirect / navigate
       onNavigate("home");
     } catch (err: unknown) {
       if (err instanceof Error) {

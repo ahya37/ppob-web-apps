@@ -4,6 +4,7 @@ import { UserAttributes } from "../attributes";
 
 class Users extends Model<UserAttributes> implements UserAttributes {
   public Id!: number;
+  public Name!: string;
   public Username!: string;
   public Email!: string;
   public Password!: string;
@@ -21,6 +22,10 @@ Users.init(
     Id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      allowNull: false,
+    },
+    Name: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     Username: {

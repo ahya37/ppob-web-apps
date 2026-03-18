@@ -1,5 +1,6 @@
 export interface UserAttributes {
   Id: number;
+  Name: string;
   Username: string;
   Email: string;
   Password: string;

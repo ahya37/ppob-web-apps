@@ -5,7 +5,7 @@ import { AuthRepository } from "./repositories";
 const authRepository = new AuthRepository();
 
 export async function login(email: string, password: string) {
-  const user = await authRepository.findByCondition({ email, password });
+  const user = await authRepository.findByCondition({ email });
 
   if (!user) {
     throw new Error("User not found");
@@ -30,9 +30,7 @@ export async function login(email: string, password: string) {
   return {
     token,
     user: {
-      id: user.Id,
-      username: user.Username,
-      email: user.Email,
+      name: user.Name,
     },
   };
 }

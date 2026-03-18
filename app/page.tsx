@@ -18,7 +18,7 @@ import {
 import { Product, View } from "@/types";
 
 const App: React.FC = () => {
-  const [view, setView] = useState<View>("login");
+  const [view, setView] = useState<View>("home");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
