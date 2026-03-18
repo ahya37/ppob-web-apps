@@ -1,4 +1,4 @@
-import { TransactionItemProps } from "../interfaces";
+import { TransactionItemProps } from "../../interfaces";
 
 const TransactionItem = ({
   title,
@@ -34,10 +34,6 @@ const TransactionItem = ({
 );
 
 export const Transaction = () => {
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
-
-  if (!token) return null;
   return (
     <section className="mt-8 px-6">
       <div className="flex justify-between items-center mb-4">

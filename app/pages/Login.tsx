@@ -13,8 +13,11 @@ const Login: React.FC<LoginProps> = ({ onNavigate }) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const res = await fetch("/api/auths", {
@@ -45,6 +48,8 @@ const Login: React.FC<LoginProps> = ({ onNavigate }) => {
       } else {
         alert("An unknown error occurred");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -124,9 +129,16 @@ const Login: React.FC<LoginProps> = ({ onNavigate }) => {
 
           <button
             type="submit"
-            className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-200 dark:shadow-blue-900/20 transition-all active:scale-[0.98]"
+            disabled={isLoading}
+            className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-200 dark:shadow-blue-900/20 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            Log In
+            {isLoading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              </>
+            ) : (
+              "Log In"
+            )}
           </button>
         </form>
 

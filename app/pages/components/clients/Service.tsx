@@ -1,7 +1,7 @@
 "use client";
 
 import { View } from "@/types";
-import { ServiceIconProps } from "../interfaces";
+import { ServiceIconProps } from "../../interfaces";
 
 const ServiceIcon = ({
   icon,
