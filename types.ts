@@ -24,6 +24,7 @@ export interface BaseProduct {
   label?: string;
   description?: string;
   validity?: string;
+  harga_jual1?: number;
 }
 
 export type Product = BaseProduct | ProdukAttributes;

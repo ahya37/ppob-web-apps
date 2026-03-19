@@ -10,11 +10,12 @@ const Checkout: React.FC<CheckoutProps> = ({
   onBack,
 }) => {
   const [paymentMethod, setPaymentMethod] = useState("gopay");
-  const adminFee = 1000;
+  const adminFee = Number(process.env.ADMIN_FEE);
 
   // Safely get properties from either BaseProduct (legacy) or ProdukAttributes (database)
   const isBaseProduct = product && "id" in product;
-  const price = product && (isBaseProduct ? product.price : product.label || 0);
+  const price =
+    product && (isBaseProduct ? product.harga_jual1 : product.harga_jual1 || 0);
   const nominal =
     product && (isBaseProduct ? product.nominal : product.label || "");
 

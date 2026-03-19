@@ -27,8 +27,6 @@ const TopUp: React.FC<TopUpProps> = ({ onNavigate, onBack }) => {
     [],
   );
   const [loadingProducts, setLoadingProducts] = useState(false);
-  const [detectedProvider, setDetectedProvider] =
-    useState<ProviderAttributes | null>(null);
 
   const fetchProducts = async () => {
     try {
@@ -66,7 +64,6 @@ const TopUp: React.FC<TopUpProps> = ({ onNavigate, onBack }) => {
       .map((p) => p.provider)
       .filter((p): p is ProviderAttributes => !!p);
     const foundProvider = detectProviderByPhone(phone, providers);
-    setDetectedProvider(foundProvider);
 
     if (foundProvider) {
       const filtered = products.filter(
