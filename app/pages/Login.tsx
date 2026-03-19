@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "@/types";
-import { User, Lock, Eye, EyeOff } from "lucide-react";
+import { User, Lock, Eye, EyeOff, AlertCircle } from "lucide-react";
 
 interface LoginProps {
   onNavigate: (view: View) => void;
@@ -12,12 +12,13 @@ const Login: React.FC<LoginProps> = ({ onNavigate }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrorMessage("");
 
     try {
       const res = await fetch("/api/auths", {
@@ -44,14 +45,22 @@ const Login: React.FC<LoginProps> = ({ onNavigate }) => {
       onNavigate("home");
     } catch (err: unknown) {
       if (err instanceof Error) {
-        alert(err.message);
+        setErrorMessage(err.message);
       } else {
-        alert("An unknown error occurred");
+        setErrorMessage("An unknown error occurred");
       }
     } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (errorMessage) {
+      const timeout = setTimeout(() => setErrorMessage(""), 4000);
+      return () => clearTimeout(timeout);
+    }
+  }, [errorMessage]);
+
   return (
     <div className="flex flex-col flex-1 bg-white dark:bg-slate-900 overflow-y-auto">
       {/* Content */}
@@ -61,27 +70,34 @@ const Login: React.FC<LoginProps> = ({ onNavigate }) => {
             <Lock className="w-10 h-10 text-white" />
           </div>
           <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">
-            Welcome Back
+            Selamat Datang
           </h2>
           <p className="text-slate-500 dark:text-slate-400">
-            Log in to continue your transactions
+            Masuk untuk melanjutkan transaksi
           </p>
         </div>
+
+        {errorMessage && (
+          <div className="flex items-center gap-2 p-3 mb-4 rounded-xl bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200 border border-red-300 dark:border-red-700 animate-fade-in">
+            <AlertCircle className="w-5 h-5" />
+            <span className="text-sm font-medium">{errorMessage}</span>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <label className="text-sm font-medium text-slate-700 dark:text-slate-300 ml-1">
-              Username
+              Email
             </label>
             <div className="relative">
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
                 <User className="w-5 h-5" />
               </div>
               <input
-                type="text"
+                type="email"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
+                placeholder="Masukkan email anda"
                 required
                 className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all dark:text-white"
               />

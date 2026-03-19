@@ -14,7 +14,7 @@ export async function login(email: string, password: string) {
   const isMatch = await bcrypt.compare(password, user.Password);
 
   if (!isMatch) {
-    throw new Error("Invalid password");
+    throw new Error("Invalid Email or Password");
   }
 
   const token = jwt.sign(
