@@ -57,11 +57,11 @@ export const DominationsTopUp: React.FC<TopUpProps> = ({
                   {prod.label}
                 </div>
               )}
-              <div className="text-xs font-semibold text-slate-400 mb-1">
-                Nominal
-              </div>
               <div className="text-sm font-extrabold mb-2 dark:text-white">
                 {prod.nama}
+              </div>
+              <div className="text-xs font-semibold text-slate-400 mb-1">
+                {idrFormated(prod.nominal ?? 0)}
               </div>
               <div
                 className={`text-sm font-bold ${selected === prod.kode ? "text-primary" : "text-slate-400"}`}
