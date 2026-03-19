@@ -4,7 +4,7 @@ export interface UserAttributes {
   Username: string;
   Email: string;
   Password: string;
-  ResellerId?: number | null;
+  KodeReseller?: string | null;
   CreatedAt: Date;
   CreatedBy: string;
   UpdatedAt?: Date | null;

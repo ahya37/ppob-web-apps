@@ -8,7 +8,7 @@ class Users extends Model<UserAttributes> implements UserAttributes {
   public Username!: string;
   public Email!: string;
   public Password!: string;
-  public ResellerId!: number | null;
+  public KodeReseller!: string | null;
   public CreatedAt!: Date;
   public CreatedBy!: string;
   public UpdatedAt!: Date | null;
@@ -40,8 +40,8 @@ Users.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    ResellerId: {
-      type: DataTypes.INTEGER,
+    KodeReseller: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
     CreatedAt: {
