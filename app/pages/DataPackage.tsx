@@ -1,14 +1,14 @@
-import { View, Product } from "@/types";
+import { View, BaseProduct } from "@/types";
 import React, { useState } from "react";
 import { useSession } from "../utils";
 import { LoginRequired } from "./components";
 
 interface DataPackageProps {
-  onNavigate: (view: View, product: Product) => void;
+  onNavigate: (view: View, product?: BaseProduct) => void;
   onBack: () => void;
 }
 
-const DATA_PRODUCTS: Product[] = [
+const DATA_PRODUCTS: BaseProduct[] = [
   {
     id: "d1",
     nominal: "Internet 5GB",
@@ -44,13 +44,21 @@ const DATA_PRODUCTS: Product[] = [
 const DataPackage: React.FC<DataPackageProps> = ({ onNavigate, onBack }) => {
   const [phone, setPhone] = useState("0812 3456 7890");
   const [selectedId, setSelectedId] = useState("d2");
-  const { isLogin } = useSession();
+  const { isLogin, loading } = useSession();
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   if (!isLogin) {
     return (
       <LoginRequired
-        description="Silahkan login untuk mengakses paket data dan melanjutkan transaksi."
-        onNavigate={(v) => onNavigate(v, DATA_PRODUCTS[0])}
+        description="Silahkan login untuk mengakses menu Top Up dan melanjutkan transaksi."
+        onNavigate={onNavigate}
         onBack={onBack}
       />
     );

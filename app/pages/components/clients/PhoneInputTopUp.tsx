@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 interface PhoneInputProps {
   phone: string;
   setPhone: (phone: string) => void;
@@ -11,32 +9,24 @@ export const PhoneInputTopUp: React.FC<PhoneInputProps> = ({
 }) => {
   return (
     <section className="p-4">
-      <div className="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
-        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+      <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">
           Phone Number
         </label>
+
         <div className="relative flex items-center">
+          {/* Search Icon */}
+          <span className="absolute left-3 text-slate-400 dark:text-slate-300 material-icons-round">
+            search
+          </span>
+
           <input
-            className="w-full bg-transparent border-none p-0 text-xl font-bold focus:ring-0 placeholder:text-slate-300 dark:placeholder:text-slate-700"
+            className="w-full pl-10 pr-4 py-3 text-lg font-bold rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-slate-300 dark:placeholder:text-slate-400 transition-all"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="08xx xxxx xxxx"
             type="tel"
           />
-          <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600">
-            <div className="w-5 h-5 rounded-full bg-red-600 overflow-hidden">
-              <Image
-                className="w-full h-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSPCRNT2jJOmixbBPKlwjNVPBjDJTiJAP5AHoFS4d9iE1-Z0lcUXgedOnz3T3Q5djNjhfoGJLpbF0YutouuvnAH4F_Sb5uZkyKeKxaihE9-ZNtL5sT3jGuN2YdFZxQawOjVjRMBVwyblOoKM7hJoVf7KrgOiXWF6AEpQ5OSz6JHDquEHmBlUSyRsYQI4VClBXH-i3kwdOcO6vXQU5lanPYEdvWOKzQ1lzivKtARYHgFCObBosTQIREau5h9-gtsx2ZS2G9uiyRWA"
-                alt="Provider"
-                width={20}
-                height={20}
-              />
-            </div>
-            <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase">
-              TELKOMSEL
-            </span>
-          </div>
         </div>
       </div>
     </section>

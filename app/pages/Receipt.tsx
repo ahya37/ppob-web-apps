@@ -10,7 +10,22 @@ interface ReceiptProps {
 
 const Receipt: React.FC<ReceiptProps> = ({ product, phone, onNavigate }) => {
   const adminFee = 1000;
-  const totalPrice = (product?.price || 0) + adminFee;
+
+  // Safely get properties from either BaseProduct (legacy) or ProdukAttributes (database)
+  const isBaseProduct = product && "id" in product;
+  const price =
+    product && (isBaseProduct ? product.price : product.harga_jual1 || 0);
+  const nominal =
+    product && (isBaseProduct ? product.nominal : resultNominal(product));
+
+  const totalPrice = (Number(price) || 0) + adminFee;
+
+  function resultNominal(p: Product) {
+    if ("nama" in p) {
+      return p.nama || p.nominal?.toString() || "";
+    }
+    return p.nominal || "";
+  }
 
   return (
     <div className="flex-1 bg-background-light dark:bg-background-dark min-h-screen flex flex-col px-6 pt-12 pb-10">
@@ -44,7 +59,7 @@ const Receipt: React.FC<ReceiptProps> = ({ product, phone, onNavigate }) => {
               </span>
               <div className="text-right">
                 <span className="text-sm font-extrabold block dark:text-white">
-                  Telkomsel {product?.nominal}
+                  Telkomsel {nominal}
                 </span>
                 <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">
                   {phone}
@@ -63,7 +78,7 @@ const Receipt: React.FC<ReceiptProps> = ({ product, phone, onNavigate }) => {
           <div className="space-y-3">
             <ReceiptRow
               label="Price"
-              value={`Rp ${product?.price.toLocaleString("id-ID")}`}
+              value={`Rp ${Number(price).toLocaleString("id-ID")}`}
             />
             <ReceiptRow
               label="Admin Fee"

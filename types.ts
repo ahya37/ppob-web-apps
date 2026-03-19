@@ -1,3 +1,5 @@
+import { ProdukAttributes } from "./app/database/attributes";
+
 export type View =
   | "home"
   | "topup"
@@ -15,7 +17,7 @@ export type View =
   | "games"
   | "login";
 
-export interface Product {
+export interface BaseProduct {
   id: string;
   nominal: string;
   price: number;
@@ -23,6 +25,8 @@ export interface Product {
   description?: string;
   validity?: string;
 }
+
+export type Product = BaseProduct | ProdukAttributes;
 
 export interface Transaction {
   id: string;

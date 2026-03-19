@@ -11,7 +11,15 @@ const Checkout: React.FC<CheckoutProps> = ({
 }) => {
   const [paymentMethod, setPaymentMethod] = useState("gopay");
   const adminFee = 1000;
-  const totalPrice = (product?.price || 0) + adminFee;
+
+  // Safely get properties from either BaseProduct (legacy) or ProdukAttributes (database)
+  const isBaseProduct = product && "id" in product;
+  const price =
+    product && (isBaseProduct ? product.price : product.harga_jual1 || 0);
+  const nominal =
+    product && (isBaseProduct ? product.nominal : product.nama || "");
+
+  const totalPrice = (Number(price) || 0) + adminFee;
 
   if (!product) {
     return <div className="p-10 text-center">No product selected</div>;
@@ -48,7 +56,7 @@ const Checkout: React.FC<CheckoutProps> = ({
               </div>
               <div>
                 <p className="font-extrabold text-slate-900 dark:text-white">
-                  {product.nominal}
+                  {nominal}
                 </p>
                 <p className="text-[11px] text-slate-500 font-bold uppercase tracking-tight">
                   Purchase • {phone}
@@ -59,7 +67,7 @@ const Checkout: React.FC<CheckoutProps> = ({
               <div className="flex justify-between text-sm">
                 <span className="text-slate-500 font-medium">Price</span>
                 <span className="text-slate-900 dark:text-slate-300 font-extrabold">
-                  Rp {product.price.toLocaleString("id-ID")}
+                  Rp {Number(price).toLocaleString("id-ID")}
                 </span>
               </div>
               <div className="flex justify-between text-sm">

@@ -1,27 +1,33 @@
 import { useState } from "react";
 import { Product, View } from "@/types";
-
-const PRODUCTS: Product[] = [
-  { id: "1", nominal: "10.000", price: 11200 },
-  { id: "2", nominal: "25.000", price: 25500 },
-  { id: "3", nominal: "50.000", price: 50100, label: "BEST SELLER" },
-  { id: "4", nominal: "100.000", price: 99000, label: "PROMO" },
-  { id: "5", nominal: "150.000", price: 148500 },
-  { id: "6", nominal: "200.000", price: 198000 },
-];
+import { ProdukAttributes } from "@/app/database/attributes";
+import { idrFormated } from "@/app/utils";
+// Removed ProdukAttributes import as it's no longer used
 
 interface TopUpProps {
   // Make product optional to match App.tsx navigateTo signature and allow passing to BottomNav
   onNavigate: (view: View, product?: Product, phone?: string) => void;
   phone: string;
+  data: ProdukAttributes[];
 }
 
 export const DominationsTopUp: React.FC<TopUpProps> = ({
   onNavigate,
   phone,
+  data,
 }) => {
-  const [selected, setSelected] = useState<string>("3");
-  const activeProduct = PRODUCTS.find((p) => p.id === selected) || PRODUCTS[2];
+  const [selected, setSelected] = useState<string>(data[0]?.kode || "");
+
+  const activeProduct =
+    data.find((p) => p.kode === selected) || data[0] || null;
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="flex justify-center items-center p-8 text-slate-400">
+        No products available
+      </div>
+    );
+  }
 
   return (
     <section>
@@ -30,12 +36,12 @@ export const DominationsTopUp: React.FC<TopUpProps> = ({
           Select Denomination
         </h2>
         <div className="grid grid-cols-2 gap-3">
-          {PRODUCTS.map((prod) => (
+          {data.map((prod) => (
             <button
-              key={prod.id}
-              onClick={() => setSelected(prod.id)}
+              key={prod.kode}
+              onClick={() => setSelected(prod.kode)}
               className={`relative text-left p-4 rounded-xl transition-all ${
-                selected === prod.id
+                selected === prod.kode
                   ? "bg-primary/5 dark:bg-primary/10 border-2 border-primary shadow-lg ring-1 ring-primary/20"
                   : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800"
               }`}
@@ -54,13 +60,13 @@ export const DominationsTopUp: React.FC<TopUpProps> = ({
               <div className="text-xs font-semibold text-slate-400 mb-1">
                 Nominal
               </div>
-              <div className="text-xl font-extrabold mb-2 dark:text-white">
-                {prod.nominal}
+              <div className="text-sm font-extrabold mb-2 dark:text-white">
+                {prod.nama}
               </div>
               <div
-                className={`text-sm font-bold ${selected === prod.id ? "text-primary" : "text-slate-primary/70"}`}
+                className={`text-sm font-bold ${selected === prod.kode ? "text-primary" : "text-slate-400"}`}
               >
-                Rp {prod.price.toLocaleString("id-ID")}
+                Rp {idrFormated(prod.harga_jual1 ?? 0)}
               </div>
             </button>
           ))}
@@ -73,12 +79,15 @@ export const DominationsTopUp: React.FC<TopUpProps> = ({
               Total Payment
             </div>
             <div className="text-2xl font-black text-slate-900 dark:text-white leading-tight">
-              Rp {activeProduct.price.toLocaleString("id-ID")}
+              Rp {idrFormated(activeProduct?.harga_jual1 ?? 0)}
             </div>
           </div>
           <button
-            onClick={() => onNavigate("checkout", activeProduct, phone)}
-            className="px-10 bg-primary hover:bg-primary/90 text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-primary/30 flex items-center justify-center gap-2"
+            onClick={() =>
+              activeProduct && onNavigate("checkout", activeProduct, phone)
+            }
+            disabled={!activeProduct}
+            className="px-10 bg-primary hover:bg-primary/90 text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-primary/30 flex items-center justify-center gap-2 disabled:bg-slate-300"
           >
             Buy Now
           </button>
