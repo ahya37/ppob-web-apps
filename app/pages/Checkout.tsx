@@ -14,10 +14,9 @@ const Checkout: React.FC<CheckoutProps> = ({
 
   // Safely get properties from either BaseProduct (legacy) or ProdukAttributes (database)
   const isBaseProduct = product && "id" in product;
-  const price =
-    product && (isBaseProduct ? product.price : product.harga_jual1 || 0);
+  const price = product && (isBaseProduct ? product.price : product.label || 0);
   const nominal =
-    product && (isBaseProduct ? product.nominal : product.nama || "");
+    product && (isBaseProduct ? product.nominal : product.label || "");
 
   const totalPrice = (Number(price) || 0) + adminFee;
 

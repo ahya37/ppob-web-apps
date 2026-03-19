@@ -2,7 +2,6 @@ interface PhoneInputProps {
   phone: string;
   setPhone: (phone: string) => void;
 }
-
 export const PhoneInputTopUp: React.FC<PhoneInputProps> = ({
   phone,
   setPhone,
@@ -11,7 +10,7 @@ export const PhoneInputTopUp: React.FC<PhoneInputProps> = ({
     <section className="p-4">
       <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
         <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">
-          Phone Number
+          Nomor Tujuan
         </label>
 
         <div className="relative flex items-center">

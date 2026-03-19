@@ -102,11 +102,7 @@ const TopUp: React.FC<TopUpProps> = ({ onNavigate, onBack }) => {
 
       <main className="pb-56">
         {/* Phone Input */}
-        <PhoneInputTopUp
-          phone={phone}
-          setPhone={setPhone}
-          provider={detectedProvider}
-        />
+        <PhoneInputTopUp phone={phone} setPhone={setPhone} />
         {/* Denominations */}
         {/* Loading Produk */}
         {loadingProducts ? (

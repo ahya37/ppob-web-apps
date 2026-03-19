@@ -20,7 +20,7 @@ const PLN: React.FC<PLNProps> = ({ onNavigate, onBack }) => {
   const [selectedId, setSelectedId] = useState("p1");
 
   const activeProduct =
-    PLN_PRODUCTS.find((p) => p.id === selectedId) || PLN_PRODUCTS[0];
+    PLN_PRODUCTS.find((p) => p.nominal === selectedId) || PLN_PRODUCTS[0];
 
   return (
     <div className="flex-1 bg-white dark:bg-slate-900 min-h-screen">
@@ -101,15 +101,15 @@ const PLN: React.FC<PLNProps> = ({ onNavigate, onBack }) => {
         <div className="grid grid-cols-2 gap-3">
           {PLN_PRODUCTS.map((prod) => (
             <button
-              key={prod.id}
-              onClick={() => setSelectedId(prod.id)}
+              key={prod.nominal}
+              // onClick={() => setSelectedId(prod.label)}
               className={`relative p-4 rounded-xl text-left transition-all ${
-                selectedId === prod.id
+                selectedId === prod.nominal
                   ? "border-2 border-primary bg-primary/5 shadow-lg"
                   : "border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800"
               }`}
             >
-              {selectedId === prod.id && (
+              {selectedId === prod.nominal && (
                 <div className="absolute top-2 right-2 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
                   <span className="material-icons-round text-white text-[14px]">
                     check
@@ -117,7 +117,7 @@ const PLN: React.FC<PLNProps> = ({ onNavigate, onBack }) => {
                 </div>
               )}
               <p
-                className={`text-[10px] font-bold mb-1 uppercase tracking-tighter ${selectedId === prod.id ? "text-primary" : "text-slate-400"}`}
+                className={`text-[10px] font-bold mb-1 uppercase tracking-tighter ${selectedId === prod.nominal ? "text-primary" : "text-slate-400"}`}
               >
                 Token
               </p>
@@ -125,9 +125,9 @@ const PLN: React.FC<PLNProps> = ({ onNavigate, onBack }) => {
                 {prod.nominal}
               </p>
               <p
-                className={`text-sm font-bold ${selectedId === prod.id ? "text-primary" : "text-slate-600 dark:text-slate-400"}`}
+                className={`text-sm font-bold ${selectedId === prod.nominal ? "text-primary" : "text-slate-600 dark:text-slate-400"}`}
               >
-                Rp {prod.price.toLocaleString("id-ID")}
+                Rp
               </p>
             </button>
           ))}
@@ -141,7 +141,7 @@ const PLN: React.FC<PLNProps> = ({ onNavigate, onBack }) => {
               Total Payment
             </span>
             <span className="text-2xl font-extrabold text-slate-900 dark:text-white leading-tight">
-              Rp {activeProduct.price.toLocaleString("id-ID")}
+              Rp
             </span>
           </div>
           <div className="flex items-center gap-1 text-primary cursor-pointer">

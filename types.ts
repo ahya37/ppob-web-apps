@@ -18,7 +18,7 @@ export type View =
   | "login";
 
 export interface BaseProduct {
-  id: string;
+  id?: string;
   nominal: string;
   price: number;
   label?: string;

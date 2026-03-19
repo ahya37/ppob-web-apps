@@ -43,7 +43,7 @@ const EMoney: React.FC<EMoneyProps> = ({ onNavigate, onBack }) => {
   const [phone, setPhone] = useState("0812 3456 7890");
 
   const activeProduct =
-    NOMINALS.find((p) => p.id === selectedNominal) || NOMINALS[0];
+    NOMINALS.find((p) => p.label === selectedNominal) || NOMINALS[0];
 
   return (
     <div className="flex-1 bg-background-light dark:bg-background-dark min-h-screen">
@@ -107,10 +107,10 @@ const EMoney: React.FC<EMoneyProps> = ({ onNavigate, onBack }) => {
           <div className="grid grid-cols-2 gap-3">
             {NOMINALS.map((nom) => (
               <button
-                key={nom.id}
-                onClick={() => setSelectedNominal(nom.id)}
+                key={nom.label}
+                // onClick={() => setSelectedNominal(nom.label)}
                 className={`p-5 rounded-2xl text-left border-2 transition-all ${
-                  selectedNominal === nom.id
+                  selectedNominal === nom.label
                     ? "bg-primary/5 border-primary shadow-md"
                     : "bg-white dark:bg-slate-800 border-transparent"
                 }`}
@@ -122,9 +122,9 @@ const EMoney: React.FC<EMoneyProps> = ({ onNavigate, onBack }) => {
                   {nom.nominal}
                 </p>
                 <p
-                  className={`text-sm font-bold ${selectedNominal === nom.id ? "text-primary" : "text-slate-500"}`}
+                  className={`text-sm font-bold ${selectedNominal === nom.label ? "text-primary" : "text-slate-500"}`}
                 >
-                  Rp {nom.price.toLocaleString("id-ID")}
+                  Rp
                 </p>
               </button>
             ))}
@@ -139,7 +139,7 @@ const EMoney: React.FC<EMoneyProps> = ({ onNavigate, onBack }) => {
               Total Pay
             </span>
             <p className="text-2xl font-black text-slate-900 dark:text-white leading-tight">
-              Rp {activeProduct.price.toLocaleString("id-ID")}
+              Rp
             </p>
           </div>
           <button

@@ -106,7 +106,7 @@ const DataPackage: React.FC<DataPackageProps> = ({ onNavigate, onBack }) => {
           {DATA_PRODUCTS.map((prod) => (
             <button
               key={prod.id}
-              onClick={() => setSelectedId(prod.id)}
+              // onClick={() => setSelectedId(prod.id)}
               className={`w-full relative text-left p-5 rounded-2xl transition-all border-2 ${
                 selectedId === prod.id
                   ? "bg-primary/5 border-primary shadow-lg"

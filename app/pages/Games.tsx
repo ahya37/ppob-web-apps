@@ -122,16 +122,14 @@ const Games: React.FC<GamesProps> = ({ onNavigate, onBack }) => {
             <div className="grid grid-cols-2 gap-3">
               {selectedGame.packages.map((pkg) => (
                 <button
-                  key={pkg.id}
+                  key={pkg.label}
                   onClick={() => onNavigate("checkout", pkg)}
                   className="p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-left active:scale-95 transition-all"
                 >
                   <p className="text-sm font-bold text-slate-900 dark:text-white mb-1">
                     {pkg.nominal}
                   </p>
-                  <p className="text-primary font-bold">
-                    Rp {pkg.price.toLocaleString("id-ID")}
-                  </p>
+                  <p className="text-primary font-bold">Rp</p>
                 </button>
               ))}
             </div>
