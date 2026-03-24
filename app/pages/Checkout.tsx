@@ -41,7 +41,7 @@ const Checkout: React.FC<CheckoutProps> = ({
       <main className="pb-56 px-5 pt-6 space-y-6">
         <section className="space-y-4">
           <h2 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-1">
-            Order Summary
+            Ringkasan Order
           </h2>
           <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-100 dark:border-slate-800 shadow-sm">
             <div className="flex items-center gap-4 mb-4">
@@ -59,13 +59,13 @@ const Checkout: React.FC<CheckoutProps> = ({
                   {nominal}
                 </p>
                 <p className="text-[11px] text-slate-500 font-bold uppercase tracking-tight">
-                  Purchase • {phone}
+                  Pembelian • {phone}
                 </p>
               </div>
             </div>
             <div className="space-y-2 pt-4 border-t border-slate-200 dark:border-slate-700">
               <div className="flex justify-between text-sm">
-                <span className="text-slate-500 font-medium">Price</span>
+                <span className="text-slate-500 font-medium">Harga</span>
                 <span className="text-slate-900 dark:text-slate-300 font-extrabold">
                   Rp {Number(price).toLocaleString("id-ID")}
                 </span>
@@ -82,7 +82,7 @@ const Checkout: React.FC<CheckoutProps> = ({
 
         <section className="space-y-4">
           <h2 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-1">
-            Payment Method
+            Metode Pembayaran
           </h2>
           <div className="space-y-3">
             <PaymentOption
@@ -109,7 +109,7 @@ const Checkout: React.FC<CheckoutProps> = ({
         <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-[10px] text-slate-500 uppercase tracking-widest font-extrabold">
-              Total Payment
+              Total Pembayaran
             </p>
             <p className="text-2xl font-black text-slate-900 dark:text-white leading-tight">
               Rp {totalPrice.toLocaleString("id-ID")}
@@ -119,7 +119,7 @@ const Checkout: React.FC<CheckoutProps> = ({
             onClick={() => onNavigate("receipt")}
             className="px-8 py-4 bg-primary text-white rounded-2xl font-black shadow-xl shadow-primary/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
           >
-            Pay Now
+            Beli Sekarang
           </button>
         </div>
       </footer>

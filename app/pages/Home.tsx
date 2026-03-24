@@ -2,7 +2,6 @@ import { View } from "@/types";
 import {
   BalanceCard,
   Profile,
-  PromoCard,
   Search,
   Service,
   Transaction,
@@ -23,8 +22,6 @@ const Home = ({ onNavigate }: { onNavigate: (v: View) => void }) => {
       <BalanceCard />
       {/* Service Grid */}
       <Service onNavigate={onNavigate} />
-      {/* Promotions */}
-      <PromoCard />
       {/* Recent Transactions */}
       <Transaction />
       {/* Bottom Nav */}

@@ -44,13 +44,6 @@ export default function ProfileClient({ user, isLogin, onNavigate }: Props) {
               <h2 className="text-white font-bold text-lg">
                 {user?.name || user?.username}
               </h2>
-              <button
-                onClick={handleLogout}
-                className="text-white/60 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors flex items-center gap-1"
-              >
-                Logout
-                <span className="material-icons-round text-xs">logout</span>
-              </button>
             </div>
           </>
         ) : (
@@ -63,14 +56,14 @@ export default function ProfileClient({ user, isLogin, onNavigate }: Props) {
         )}
       </div>
 
-      <div className="flex items-center space-x-2">
-        <span className="text-white/40 font-black text-xs uppercase tracking-tighter">
-          Muara Digital
-        </span>
-        <button className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white">
-          <span className="material-icons-round">notifications</span>
+      {isLogin && (
+        <button
+          onClick={handleLogout}
+          className="text-white/60 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors flex items-center gap-1"
+        >
+          <span className="material-icons-round text-xs">logout</span>
         </button>
-      </div>
+      )}
     </div>
   );
 }

@@ -2,16 +2,14 @@ import { useState } from "react";
 import { Product, View } from "@/types";
 import { ProdukAttributes } from "@/app/database/attributes";
 import { idrFormated } from "@/app/utils";
-// Removed ProdukAttributes import as it's no longer used
 
-interface TopUpProps {
-  // Make product optional to match App.tsx navigateTo signature and allow passing to BottomNav
+interface DominationsDataPackageProps {
   onNavigate: (view: View, product?: Product, phone?: string) => void;
   phone: string;
   data: ProdukAttributes[];
 }
 
-export const DominationsTopUp: React.FC<TopUpProps> = ({
+export const DominationsDataPackage: React.FC<DominationsDataPackageProps> = ({
   onNavigate,
   phone,
   data,
@@ -35,45 +33,52 @@ export const DominationsTopUp: React.FC<TopUpProps> = ({
         <h2 className="text-sm font-bold mb-4 text-slate-700 dark:text-slate-300">
           Pilih Nominal
         </h2>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-3">
           {data.map((prod) => (
             <button
               key={prod.kode}
               onClick={() => setSelected(prod.kode)}
-              className={`relative text-left p-4 rounded-xl transition-all ${
+              className={`w-full relative text-left p-5 rounded-2xl transition-all border-2 ${
                 selected === prod.kode
-                  ? "bg-primary/5 dark:bg-primary/10 border-2 border-primary shadow-lg ring-1 ring-primary/20"
-                  : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800"
+                  ? "bg-primary/5 dark:bg-primary/10 border-primary shadow-lg ring-1 ring-primary/20"
+                  : "bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-800"
               }`}
             >
               {prod.label && (
-                <div
-                  className={`absolute -top-2 right-2 px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase ${
-                    prod.label === "BEST SELLER"
-                      ? "bg-orange-500 text-white"
-                      : "bg-primary text-white"
-                  }`}
-                >
+                <div className="absolute -top-2 right-4 px-2 py-0.5 rounded-full text-[8px] font-black bg-orange-500 text-white uppercase tracking-wider">
                   {prod.label}
                 </div>
               )}
-              <div className="text-sm font-extrabold mb-2 dark:text-white">
-                {prod.nama}
-              </div>
-              <div className="text-xs font-semibold text-slate-400 mb-1">
-                {idrFormated(prod.nominal ?? 0)}
-              </div>
-              <div
-                className={`text-sm font-bold ${selected === prod.kode ? "text-primary" : "text-slate-400"}`}
-              >
-                Rp {idrFormated(prod.harga_jual1 ?? 0)}
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="text-base font-extrabold text-slate-900 dark:text-white">
+                    {prod.nama}
+                  </h3>
+                  {prod.catatan && (
+                    <p className="text-xs text-slate-500 font-medium mt-0.5">
+                      {prod.catatan}
+                    </p>
+                  )}
+                </div>
+                <div className="text-right">
+                  <p className="text-primary font-black text-lg">
+                    Rp {idrFormated(prod.harga_jual1 ?? 0)}
+                  </p>
+                  {prod.nominal && (
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                      {idrFormated(prod.nominal)} MB
+                    </p>
+                  )}
+                </div>
               </div>
             </button>
           ))}
         </div>
       </section>
-      <div className="fixed bottom-20 left-0 right-0 max-w-[430px] mx-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-5 pt-4 pb-4 shadow-2xl z-50">
-        <div className="flex items-center justify-between mb-4">
+
+      {/* Sticky bottom bar */}
+      <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-5 pt-4 pb-10 shadow-2xl z-50">
+        <div className="flex items-center justify-between">
           <div>
             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
               Total Pembayaran

@@ -1,50 +1,71 @@
-import { View, BaseProduct } from "@/types";
-import React, { useState } from "react";
+import { View, Product } from "@/types";
+import React, { useEffect, useState } from "react";
 import { useSession } from "../utils";
-import { LoginRequired } from "./components";
+import { LoginRequired, DominationsDataPackage } from "./components";
+import {
+  ProdukAttributes,
+  ProviderAttributes,
+} from "@/app/database/attributes";
+import { detectProviderByPhone } from "@/app/utils/detect-provider-phone";
 
 interface DataPackageProps {
-  onNavigate: (view: View, product?: BaseProduct) => void;
+  onNavigate: (view: View, product?: Product, phone?: string) => void;
   onBack: () => void;
 }
 
-const DATA_PRODUCTS: BaseProduct[] = [
-  {
-    id: "d1",
-    nominal: "Internet 5GB",
-    price: 25000,
-    description: "Quota Main 5GB + 2GB Chat",
-    validity: "30 Days",
-  },
-  {
-    id: "d2",
-    nominal: "Internet 12GB",
-    price: 52000,
-    label: "POPULAR",
-    description: "Quota Main 12GB",
-    validity: "30 Days",
-  },
-  {
-    id: "d3",
-    nominal: "Internet 30GB",
-    price: 95000,
-    label: "BEST VALUE",
-    description: "Quota Main 30GB + Unlimited Video",
-    validity: "30 Days",
-  },
-  {
-    id: "d4",
-    nominal: "Daily 1GB",
-    price: 5000,
-    description: "Quota Main 1GB",
-    validity: "1 Day",
-  },
-];
-
 const DataPackage: React.FC<DataPackageProps> = ({ onNavigate, onBack }) => {
-  const [phone, setPhone] = useState("0812 3456 7890");
-  const [selectedId, setSelectedId] = useState("d2");
+  const [phone, setPhone] = useState("");
   const { isLogin, loading } = useSession();
+  const [products, setProducts] = useState<ProdukAttributes[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<ProdukAttributes[]>(
+    [],
+  );
+  const [loadingProducts, setLoadingProducts] = useState(false);
+
+  const fetchProducts = async () => {
+    try {
+      setLoadingProducts(true);
+      const category = "INTERNET";
+      const res = await fetch(`/api/produk/${category}`);
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch products");
+      }
+
+      const result = await res.json();
+      setProducts(result?.data || []);
+    } catch (error: unknown) {
+      const err = error as { message?: string };
+      console.error("Fetch data package error:", err.message);
+    } finally {
+      setLoadingProducts(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isLogin) {
+      fetchProducts();
+    }
+  }, [isLogin]);
+
+  // Filter produk berdasarkan prefix nomor HP
+  useEffect(() => {
+    if (!products.length) return;
+
+    const providers = products
+      .map((p) => p.provider)
+      .filter((p): p is ProviderAttributes => !!p);
+    const foundProvider = detectProviderByPhone(phone, providers);
+
+    if (foundProvider) {
+      const filtered = products.filter(
+        (p) => p.kode_provider === foundProvider.kode,
+      );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts(products);
+    }
+  }, [phone, products]);
 
   if (loading) {
     return (
@@ -57,15 +78,12 @@ const DataPackage: React.FC<DataPackageProps> = ({ onNavigate, onBack }) => {
   if (!isLogin) {
     return (
       <LoginRequired
-        description="Silahkan login untuk mengakses menu Top Up dan melanjutkan transaksi."
+        description="Silahkan login untuk mengakses menu Data Package dan melanjutkan transaksi."
         onNavigate={onNavigate}
         onBack={onBack}
       />
     );
   }
-
-  const activeProduct =
-    DATA_PRODUCTS.find((p) => p.id === selectedId) || DATA_PRODUCTS[0];
 
   return (
     <div className="flex-1 bg-background-light dark:bg-background-dark min-h-screen">
@@ -81,74 +99,40 @@ const DataPackage: React.FC<DataPackageProps> = ({ onNavigate, onBack }) => {
       </header>
 
       <main className="pb-40">
+        {/* Phone Input */}
         <section className="p-4">
-          <div className="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+          <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">
               Phone Number
             </label>
             <div className="relative flex items-center">
+              <span className="absolute left-3 text-slate-400 dark:text-slate-300 material-icons-round">
+                search
+              </span>
               <input
-                className="w-full bg-transparent border-none p-0 text-xl font-bold focus:ring-0"
+                className="w-full pl-10 pr-4 py-3 text-lg font-bold rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-slate-300 dark:placeholder:text-slate-400 transition-all"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                placeholder="08xx xxxx xxxx"
                 type="tel"
               />
-              <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-700 px-3 py-1.5 rounded-lg">
-                <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400">
-                  TELKOMSEL
-                </span>
-              </div>
             </div>
           </div>
         </section>
 
-        <section className="px-4 space-y-3">
-          {DATA_PRODUCTS.map((prod) => (
-            <button
-              key={prod.id}
-              // onClick={() => setSelectedId(prod.id)}
-              className={`w-full relative text-left p-5 rounded-2xl transition-all border-2 ${
-                selectedId === prod.id
-                  ? "bg-primary/5 border-primary shadow-lg"
-                  : "bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-800"
-              }`}
-            >
-              {prod.label && (
-                <div className="absolute -top-2 right-4 px-2 py-0.5 rounded-full text-[8px] font-black bg-orange-500 text-white uppercase tracking-wider">
-                  {prod.label}
-                </div>
-              )}
-              <div className="flex justify-between items-start mb-2">
-                <div>
-                  <h3 className="text-lg font-extrabold text-slate-900 dark:text-white">
-                    {prod.nominal}
-                  </h3>
-                  <p className="text-xs text-slate-500 font-medium">
-                    {prod.description}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="text-primary font-black text-lg">
-                    Rp {prod.price.toLocaleString("id-ID")}
-                  </p>
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                    {prod.validity}
-                  </p>
-                </div>
-              </div>
-            </button>
-          ))}
-        </section>
+        {/* Product List */}
+        {loadingProducts ? (
+          <div className="flex justify-center mt-6">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+          </div>
+        ) : (
+          <DominationsDataPackage
+            onNavigate={onNavigate}
+            phone={phone}
+            data={filteredProducts}
+          />
+        )}
       </main>
-
-      <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-5 pt-4 pb-10 shadow-2xl z-50">
-        <button
-          onClick={() => onNavigate("checkout", activeProduct)}
-          className="w-full bg-primary hover:bg-primary/90 text-white font-extrabold py-4 rounded-xl transition-all active:scale-[0.98] shadow-lg shadow-primary/30 flex items-center justify-center gap-2"
-        >
-          Buy {activeProduct.nominal}
-        </button>
-      </div>
     </div>
   );
 };

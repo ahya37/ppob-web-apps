@@ -16,7 +16,7 @@ export default function BalanceCardClient({ isLogin }: Props) {
           </div>
           <div>
             <p className="text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-tighter">
-              MD Balance
+              Saldo
             </p>
             <p className="text-slate-900 dark:text-white text-xl font-extrabold tracking-tight">
               Rp 2.450.000

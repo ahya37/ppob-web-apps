@@ -38,11 +38,8 @@ export const Transaction = () => {
     <section className="mt-8 px-6">
       <div className="flex justify-between items-center mb-4">
         <h3 className="font-bold text-slate-900 dark:text-white">
-          Recent Transactions
+          Transaksi Terakhir
         </h3>
-        <button className="text-primary text-sm font-semibold">
-          View History
-        </button>
       </div>
       <div className="space-y-3">
         <TransactionItem

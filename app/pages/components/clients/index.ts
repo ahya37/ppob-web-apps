@@ -8,4 +8,5 @@ export * from "./BottomNav";
 export * from "./HeaderTopUp";
 export * from "./PhoneInputTopUp";
 export * from "./DominationsTopUp";
+export * from "./DominationsDataPackage";
 export * from "./LoginRequired";

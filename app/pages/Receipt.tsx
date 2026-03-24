@@ -35,10 +35,10 @@ const Receipt: React.FC<ReceiptProps> = ({ product, phone, onNavigate }) => {
           </span>
         </div>
         <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">
-          Payment Successful
+          Pembayaran Berhasil
         </h1>
         <p className="text-slate-500 text-sm text-center mt-1 font-medium">
-          Your transaction has been processed and is now complete.
+          Transaksi Anda telah berhasil diproses.
         </p>
       </div>
 
@@ -46,16 +46,10 @@ const Receipt: React.FC<ReceiptProps> = ({ product, phone, onNavigate }) => {
         <div className="h-1.5 w-full bg-primary"></div>
         <div className="p-6">
           <div className="space-y-4">
-            <ReceiptRow
-              label="Transaction ID"
-              value="#TRX-992038411"
-              highlight
-            />
-            <ReceiptRow label="Date & Time" value="24 Oct 2023, 14:32" />
+            <ReceiptRow label="ID Transaksi" value="#TRX-992038411" highlight />
+            <ReceiptRow label="Tanggal & Waktu" value="24 Oct 2023, 14:32" />
             <div className="flex justify-between items-start">
-              <span className="text-sm text-slate-500 font-medium">
-                Product
-              </span>
+              <span className="text-sm text-slate-500 font-medium">Produk</span>
               <div className="text-right">
                 <span className="text-sm font-extrabold block dark:text-white">
                   Telkomsel {nominal}
@@ -65,7 +59,7 @@ const Receipt: React.FC<ReceiptProps> = ({ product, phone, onNavigate }) => {
                 </span>
               </div>
             </div>
-            <ReceiptRow label="Payment Method" value="GOPAY Wallet" />
+            <ReceiptRow label="Metode Pembayaran" value="GOPAY Wallet" />
           </div>
 
           <div className="relative my-8">
@@ -76,16 +70,16 @@ const Receipt: React.FC<ReceiptProps> = ({ product, phone, onNavigate }) => {
 
           <div className="space-y-3">
             <ReceiptRow
-              label="Price"
+              label="Harga"
               value={`Rp ${Number(price).toLocaleString("id-ID")}`}
             />
             <ReceiptRow
-              label="Admin Fee"
+              label="Biaya Admin"
               value={`Rp ${adminFee.toLocaleString("id-ID")}`}
             />
             <div className="flex justify-between items-center pt-2">
               <span className="text-base font-extrabold text-slate-900 dark:text-white">
-                Total Amount
+                Total Pembayaran
               </span>
               <span className="text-xl font-extrabold text-primary">
                 Rp {totalPrice.toLocaleString("id-ID")}
@@ -99,8 +93,8 @@ const Receipt: React.FC<ReceiptProps> = ({ product, phone, onNavigate }) => {
               verified_user
             </span>
             <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold leading-tight">
-              This is an official digital receipt. Please keep this for your
-              records as proof of payment.
+              Ini adalah bukti pembayaran digital resmi. Harap simpan ini untuk
+              arsip Anda sebagai bukti pembayaran.
             </p>
           </div>
         </div>
@@ -109,21 +103,21 @@ const Receipt: React.FC<ReceiptProps> = ({ product, phone, onNavigate }) => {
       <div className="mt-auto space-y-3">
         <button className="w-full bg-primary text-white font-extrabold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-primary/30 active:scale-[0.98] transition-all">
           <span className="material-icons-round text-xl">file_download</span>
-          Download Digital Receipt
+          Download Bukti Pembayaran
         </button>
         <button
           onClick={() => onNavigate("home")}
           className="w-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-extrabold py-4 rounded-2xl border border-slate-200 dark:border-slate-700 active:scale-[0.98] transition-all"
         >
-          Back to Home
+          Kembali Ke Beranda
         </button>
       </div>
 
       <div className="mt-6 text-center">
         <p className="text-sm text-slate-400 font-medium">
-          Having issues?{" "}
+          Punya kendala?{" "}
           <button className="text-primary font-bold hover:underline">
-            Contact Support
+            Hubungi Support
           </button>
         </p>
       </div>

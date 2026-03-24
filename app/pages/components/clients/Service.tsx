@@ -33,10 +33,7 @@ export const Service = ({
   return (
     <section className="mt-8 px-6">
       <div className="flex justify-between items-center mb-5">
-        <h3 className="font-bold text-slate-900 dark:text-white">
-          Our Services
-        </h3>
-        <button className="text-primary text-sm font-semibold">See All</button>
+        <h3 className="font-bold text-slate-900 dark:text-white">Layanan</h3>
       </div>
       <div className="grid grid-cols-4 gap-y-6">
         <ServiceIcon
